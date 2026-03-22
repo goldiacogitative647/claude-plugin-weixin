@@ -1,9 +1,11 @@
 #!/usr/bin/env bun
 /**
  * Step 1: Fetch QR code and render it in terminal.
- * Outputs JSON to stdout as last line: {"qrcode":"...","url":"..."}
+ * Outputs JSON as the last line: {"qrcode":"...","url":"..."}
  * so the caller can extract the qrcode token for polling.
  */
+
+import qrcode from 'qrcode-terminal'
 
 const BASE_URL = process.argv[2] || 'https://ilinkai.weixin.qq.com/'
 const base = BASE_URL.endsWith('/') ? BASE_URL : `${BASE_URL}/`
@@ -15,20 +17,14 @@ if (!res.ok) {
 }
 
 const data = await res.json() as any
-const qrcode: string = data.qrcode
+const qrcodeToken: string = data.qrcode
 const url: string = data.qrcode_img_content
 
-// Render QR code in terminal
-try {
-  const proc = Bun.spawn(['npx', '-y', 'qrcode-terminal@0.12.0', url, '--small'], {
-    stdout: 'inherit',
-    stderr: 'pipe',
-  })
-  await proc.exited
-} catch {}
-
-console.log(`\n用微信扫描上方二维码，或在微信中打开以下链接：`)
-console.log(`\n  ${url}\n`)
-
-// Output structured data as last line for the caller to parse
-console.log(JSON.stringify({ qrcode, url }))
+// Render QR code in terminal — generates scannable ASCII art
+qrcode.generate(url, { small: true }, (art: string) => {
+  console.log(art)
+  console.log(`用微信扫描上方二维码，或在微信中打开以下链接：`)
+  console.log(`\n  ${url}\n`)
+  // Last line: structured data for the caller to parse
+  console.log(JSON.stringify({ qrcode: qrcodeToken, url }))
+})
